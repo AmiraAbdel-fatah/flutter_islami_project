@@ -13,5 +13,6 @@ class MyThemeData {
         unselectedItemColor: AppColors.blackColor,
         selectedItemColor: AppColors.whiteColor,
         showSelectedLabels: true,
-      ));
+    ),
+  );
 }

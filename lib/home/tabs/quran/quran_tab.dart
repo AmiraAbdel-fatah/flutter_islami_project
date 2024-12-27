@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:islami_app/home/tabs/quran/sura_details_screen.dart';
+import 'package:islami_app/utils/app_style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../app_colors.dart';
 import '../../../model/sura_model.dart';
+import '../../../utils/app_colors.dart';
 import 'sura_list_widget.dart';
 
 class QuranTab extends StatefulWidget {
@@ -30,7 +31,7 @@ class _QuranTabState extends State<QuranTab> {
     // TODO: implement initState     execute  before build function
     super.initState();
     addSuraList();
-    loadLastSura();
+    loadLastSura(); // get data from shared preference
   }
 
   List<SuraModel> filterList = SuraModel.suraList;
@@ -46,6 +47,7 @@ class _QuranTabState extends State<QuranTab> {
 
   @override
   Widget build(BuildContext context) {
+    loadLastSura();
     return Container(
       padding: const EdgeInsets.all(12),
       child: Column(
@@ -72,7 +74,7 @@ class _QuranTabState extends State<QuranTab> {
                 color: AppColors.primaryDark,
               ),
               hintText: 'Sura Name',
-              hintStyle: const TextStyle(color: AppColors.whiteColor),
+              hintStyle: AppStyle.bold16White,
             ),
             onChanged: (text) {
               searchtext = text;
@@ -118,6 +120,11 @@ class _QuranTabState extends State<QuranTab> {
             itemBuilder: (context, index) {
               return InkWell(
                 onTap: () {
+                  // save last sura
+                  saveLastSura(
+                      suraEnName: filterList[index].suraEnglishName,
+                      suraArName: filterList[index].suraArabicName,
+                      numOfVerses: filterList[index].numOfVerses);
                   Navigator.of(context).pushNamed(SuraDetailsScreen.routeName,
                       arguments: filterList[index]);
                 },
@@ -136,10 +143,11 @@ class _QuranTabState extends State<QuranTab> {
 
   Widget builtMostRecentlyWidget() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'Most Recently ',
-          style: TextStyle(color: AppColors.whiteColor),
+          style: AppStyle.bold16White,
         ),
         const SizedBox(
           height: 10,
@@ -153,11 +161,20 @@ class _QuranTabState extends State<QuranTab> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(loadSuraList['suraEnName'] ?? ''),
-                  Text(loadSuraList['SuraArName'] ?? ''),
-                  Text(loadSuraList['numOfVerses'] ?? ''),
+                  Text(
+                    loadSuraList['suraEnName'] ?? '',
+                    style: AppStyle.bold24Black,
+                  ),
+                  Text(
+                    loadSuraList['SuraArName'] ?? '',
+                    style: AppStyle.bold24Black,
+                  ),
+                  Text(
+                    '${loadSuraList['numOfVerses']}Verses' ?? '',
+                    style: AppStyle.bold18Black,
+                  ),
                 ],
               ),
               Image.asset('assets/images/most_recently _image.png'),
@@ -177,6 +194,7 @@ class _QuranTabState extends State<QuranTab> {
     await prefs.setString('suraEnName', suraEnName);
     await prefs.setString('suraArN ame', suraArName);
     await prefs.setString('numOfVerses', numOfVerses);
+    await loadLastSura();
   }
 
   getLastSura() async {
