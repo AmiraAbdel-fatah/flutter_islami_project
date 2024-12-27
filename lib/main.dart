@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       darkTheme: MyThemeData.darkTheme,
       themeMode: ThemeMode.dark,
-      initialRoute: HomeScreen.routeName,
+      initialRoute: OnBoardingScreen.routeName,
       routes: {
         OnBoardingScreen.routeName: (context) => OnBoardingScreen(),
         HomeScreen.routeName: (context) => HomeScreen(),
