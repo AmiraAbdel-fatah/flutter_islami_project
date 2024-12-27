@@ -5,7 +5,7 @@ import 'package:islami_app/home/tabs/radio/radio_tab.dart';
 import 'package:islami_app/home/tabs/sebha/sebha_tab.dart';
 import 'package:islami_app/home/tabs/time/time_tab.dart';
 
-import '../app_colors.dart';
+import '../utils/app_colors.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = 'home';

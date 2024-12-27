@@ -1,9 +1,10 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:islami_app/utils/app_style.dart';
 
-import '../../../app_colors.dart';
 import '../../../model/hadith_model.dart';
+import '../../../utils/app_colors.dart';
 import 'hadith_details_screen.dart';
 
 class HadithTab extends StatefulWidget {
@@ -18,6 +19,8 @@ class _HadithTabState extends State<HadithTab> {
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     if (hadithList.isEmpty) {
       loadHadithFile();
     }
@@ -51,8 +54,7 @@ class _HadithTabState extends State<HadithTab> {
                         children: [
                           Text(
                             hadithList[itemIndex].title,
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                            style: AppStyle.bold24Black,
                           ),
                           SizedBox(
                             height: 10,
@@ -60,7 +62,7 @@ class _HadithTabState extends State<HadithTab> {
                           Expanded(
                               child: Text(
                             hadithList[itemIndex].content.join(''),
-                            style: TextStyle(fontSize: 20),
+                            style: AppStyle.bold16Black,
                           ))
                         ],
                       ),
@@ -68,8 +70,8 @@ class _HadithTabState extends State<HadithTab> {
             ),
           ),
           options: CarouselOptions(
-            height: 560,
-            viewportFraction: 0.75,
+            height: height * .66,
+            viewportFraction: 0.72,
             enlargeCenterPage: true,
             enableInfiniteScroll: false,
           ),

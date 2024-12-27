@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:islami_app/utils/app_style.dart';
 
-import '../../../app_colors.dart';
+import '../../../utils/app_colors.dart';
 
 class HadithContentItem extends StatelessWidget {
   String content;
@@ -15,7 +16,7 @@ class HadithContentItem extends StatelessWidget {
       child: Text(
         content,
         textAlign: TextAlign.center,
-        style: TextStyle(color: AppColors.primaryDark, fontSize: 20),
+        style: AppStyle.bold20Primary,
       ),
     );
   }

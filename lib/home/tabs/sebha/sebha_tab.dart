@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../../app_colors.dart';
+import 'package:islami_app/utils/app_style.dart';
 
 class SebhaTab extends StatefulWidget {
   const SebhaTab({super.key});
@@ -10,63 +9,104 @@ class SebhaTab extends StatefulWidget {
   State<SebhaTab> createState() => _SebhaTabState();
 }
 
-class _SebhaTabState extends State<SebhaTab> {
+class _SebhaTabState extends State<SebhaTab>
+    with SingleTickerProviderStateMixin {
   int counter = 0;
+  String displayText = 'سبحان الله';
+  List<String> azkar = ["الله أكبر", "الحمد لله", "محمد رسول الله"];
+  late AnimationController controller;
+  late Animation<double> animation;
+
+  void initState() {
+    super.initState();
+    controller =
+        AnimationController(duration: Duration(seconds: 30), vsync: this);
+    animation = CurvedAnimation(
+      parent: controller,
+      curve: Curves.easeInOut,
+    );
+  }
+
+  void dipose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   void incrementCounter() {
     setState(() {
       counter++;
+      if (counter % 33 == 0) {
+        displayText = azkar[(counter ~/ 33) % azkar.length];
+      }
+      controller.forward(from: 0.0);
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return Center(
       child: Column(
         children: [
           Image.asset('assets/images/Logo.png'),
+          SizedBox(
+            height: 20,
+          ),
           Text(
             'سَبِّحِ اسْمَ رَبِّكَ الأعلى ',
-            style: TextStyle(
-              color: AppColors.primaryDark,
-              fontWeight: FontWeight.bold,
-              fontSize: 36,
-            ),
+            style: AppStyle.bold36Primary,
             textAlign: TextAlign.center,
           ),
           SizedBox(
             height: 20,
           ),
+          // AnimatedBuilder(
+          //   animation: animation,
+          //   builder: (context,child){
+          //     return Transform.scale(
+          //     scale: animation.value,
+          // child: child,
+          //     );
+          // },
+          //   child:
           GestureDetector(
             onTap: incrementCounter,
             child: Stack(
               children: [
                 Container(
-                  height: 460,
-                  width: 379,
+                  height: height * .53,
+                  width: width * .88,
                   decoration: BoxDecoration(
                       image: DecorationImage(
                     image: AssetImage('assets/images/sbha_image_rotation.png'),
                     fit: BoxFit.fill,
                   )),
-                  child: Center(
-                    child: Text(
-                      'سبحان الله\n$counter',
-                      style: TextStyle(
-                        fontSize: 36,
-                        color: AppColors.primaryDark,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      SizedBox(
+                        height: height * .25,
                       ),
-                      textAlign: TextAlign.center,
-                    ),
+                      Text(
+                        displayText,
+                        style: AppStyle.bold36Primary,
+                        textAlign: TextAlign.center,
+                      ),
+                      Positioned(
+                          bottom: 16,
+                          child: Text(
+                            '${counter % 33}',
+                            style: AppStyle.bold36Primary,
+                            textAlign: TextAlign.center,
+                          ))
+                    ],
                   ),
-                ),
-                //Image.asset('assets/images/sbha_image_rotation.png'),
-                SizedBox(
-                  height: 50,
                 ),
               ],
             ),
-          )
+          ),
+          // )
         ],
       ),
     );

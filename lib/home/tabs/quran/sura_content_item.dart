@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:islami_app/utils/app_style.dart';
 
-import '../../../app_colors.dart';
+import '../../../utils/app_colors.dart';
 
 class SuraContentItem extends StatelessWidget {
   String content;
@@ -20,7 +21,7 @@ class SuraContentItem extends StatelessWidget {
         '$content [${index + 1}]',
         textDirection: TextDirection.rtl,
         textAlign: TextAlign.center,
-        style: const TextStyle(color: AppColors.primaryDark, fontSize: 20),
+        style: AppStyle.bold20Primary,
       ),
     );
   }

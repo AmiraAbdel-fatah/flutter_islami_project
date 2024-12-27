@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:islami_app/utils/app_style.dart';
 
-import '../../../app_colors.dart';
 import '../../../model/sura_model.dart';
+import '../../../utils/app_colors.dart';
 
 class SuraListWidget extends StatelessWidget {
   SuraModel suraModel;
@@ -30,16 +31,12 @@ class SuraListWidget extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('${suraModel.suraEnglishName}',
-                      style: TextStyle(color: AppColors.whiteColor)),
+                  Text(suraModel.suraEnglishName, style: AppStyle.bold20White),
                   Text('${suraModel.numOfVerses} Verses',
-                      style: TextStyle(color: AppColors.whiteColor)),
+                      style: AppStyle.bold20White),
                 ],
               ),
-              Text(
-                '${suraModel.suraArabicName}',
-                style: TextStyle(color: AppColors.whiteColor),
-              ),
+              Text(suraModel.suraArabicName, style: AppStyle.bold20White),
             ],
           ),
         ),

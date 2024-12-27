@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
 
-import '../app_colors.dart';
 import '../home/home_screen.dart';
+import '../utils/app_colors.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   static const String routeName = 'on boarding screen';
